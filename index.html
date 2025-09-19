@@ -1,48 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Binning - Agrupamiento por Rangos</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Análisis de Datos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero">
-    <h1>Agrupamiento por Rangos (Binning)</h1>
-    <p>Reduce y simplifica volúmenes de datos manteniendo patrones relevantes.</p>
-  </header>
+    <div class="app-container">
+        <!-- Barra lateral para controles e información -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Panel de Control</h2>
+            </div>
+            <div class="control-panel">
+                <label for="input-factor">Factor de Multiplicación:</label>
+                <input type="number" id="input-factor" value="10" step="any">
+                <button id="execute-button">Generar Simulación</button>
+            </div>
+            <div class="team-info">
+                <h3>Integrantes:</h3>
+                <ul>
+                    <li>Andres Felipe Villarreal</li>
+                    <li>Juan David Montenegro</li>
+                    
+                </ul>
+            </div>
+        </aside>
 
-  <main class="container">
-    <section class="controls">
-      <label for="factor">Factor de multiplicación de coeficientes:</label>
-      <input id="factor" type="number" step="0.01" value="1.0" />
-      <button id="applyBtn">Aplicar</button>
-      <p class="help">Solo este valor es modificable — el resto de cálculos se actualizan automáticamente.</p>
-    </section>
+        <!-- Área de contenido principal para datos y gráficos -->
+        <main class="main-content">
+            <h1>Visualización de Series de Datos Agrupadas</h1>
+            <section class="data-grid">
+                <div class="grid-item" id="coefficients-output">
+                    <h4>Coeficientes Aleatorios</h4>
+                </div>
+                <div class="grid-item" id="normalized-data-output">
+                    <h4>Datos Normalizados (X, Y)</h4>
+                </div>
+                <div class="grid-item" id="binned-data-01-output">
+                    <h4>Promedios (Rango 0.1)</h4>
+                </div>
+                <div class="grid-item" id="binned-data-005-output">
+                    <h4>Promedios (Rango 0.05)</h4>
+                </div>
+            </section>
+            
+            <section class="charts-grid">
+                <div class="chart-item wide-item" id="chart-combined-output"></div>
+                <div class="chart-item" id="chart-normalized-output"></div>
+                <div class="chart-item" id="chart-binned-01-output"></div>
+                <div class="chart-item" id="chart-binned-005-output"></div>
+            </section>
+        </main>
+    </div>
 
-    <section id="tables" class="tables-grid">
-    </section>
-
-    <section id="charts" class="charts-grid">
-      <div id="chart-normalized" class="chart-card"><h3>Gráfico Y Normalizado</h3><canvas id="c-normalized"></canvas></div>
-      <div id="chart-range-0-1" class="chart-card"><h3>Gráfico Y (rango 0.1)</h3><canvas id="c-range-0-1"></canvas></div>
-      <div id="chart-range-0-05" class="chart-card"><h3>Gráfico Y (rango 0.05)</h3><canvas id="c-range-0-05"></canvas></div>
-      <div id="chart-combined" class="chart-card"><h3>Gráfico Combinado</h3><canvas id="c-combined"></canvas></div>
-    </section>
-
-    <section class="notes">
-      <h4>Notas</h4>
-      <ul>
-        <li>Los datos provienen de la hoja: <strong>Hoja2</strong>.</li>
-        <li>Columnas detectadas: Factor de multiplicación de los coeficientes, Unnamed: 1, Unnamed: 2, Unnamed: 3, Unnamed: 4, Unnamed: 5, Unnamed: 6, Unnamed: 7, Unnamed: 8, Unnamed: 9, Unnamed: 10, Unnamed: 11, Unnamed: 12, Unnamed: 13, Unnamed: 14, Unnamed: 15, Unnamed: 16, Unnamed: 17, Unnamed: 18, Unnamed: 19, Unnamed: 20, Unnamed: 21, Unnamed: 22, Unnamed: 23, Unnamed: 24, Unnamed: 25, Unnamed: 26, Unnamed: 27, Unnamed: 28, Unnamed: 29, Unnamed: 30, Unnamed: 31, Unnamed: 32, Unnamed: 33, Unnamed: 34, Unnamed: 35, Unnamed: 36, Unnamed: 37.</li>
-        <li>Columnas usadas: coeficiente = <em>Factor de multiplicación de los coeficientes</em>, X = <em>None</em>, Y = <em></em>.</li>
-      </ul>
-    </section>
-  </main>
-
-  <script>
-    window.__EXCEL_DATA__ = {"sheet_name": "Hoja2", "columns": ["Factor de multiplicación de los coeficientes", "Unnamed: 1", "Unnamed: 2", "Unnamed: 3", "Unnamed: 4", "Unnamed: 5", "Unnamed: 6", "Unnamed: 7", "Unnamed: 8", "Unnamed: 9", "Unnamed: 10", "Unnamed: 11", "Unnamed: 12", "Unnamed: 13", "Unnamed: 14", "Unnamed: 15", "Unnamed: 16", "Unnamed: 17", "Unnamed: 18", "Unnamed: 19", "Unnamed: 20", "Unnamed: 21", "Unnamed: 22", "Unnamed: 23", "Unnamed: 24", "Unnamed: 25", "Unnamed: 26", "Unnamed: 27", "Unnamed: 28", "Unnamed: 29", "Unnamed: 30", "Unnamed: 31", "Unnamed: 32", "Unnamed: 33", "Unnamed: 34", "Unnamed: 35", "Unnamed: 36", "Unnamed: 37"], "rows": [{"coef": 10.0, "y": []}, {"coef": null, "y": []}, {"coef": null, "y": []}, {"coef": null, "y": []}, {"coef": null, "y": []}, {"coef": null, "y": []}, {"coef": null, "y": []}, {"coef": null, "y": []}, {"coef": 0.0, "y": []}, {"coef": 1.0, "y": []}, {"coef": 2.0, "y": []}, {"coef": 3.0, "y": []}, {"coef": 4.0, "y": []}, {"coef": 5.0, "y": []}, {"coef": 6.0, "y": []}, {"coef": 7.0, "y": []}, {"coef": 8.0, "y": []}, {"coef": 9.0, "y": []}, {"coef": 10.0, "y": []}, {"coef": 11.0, "y": []}, {"coef": 12.0, "y": []}, {"coef": 13.0, "y": []}, {"coef": 14.0, "y": []}, {"coef": 15.0, "y": []}, {"coef": 16.0, "y": []}, {"coef": 17.0, "y": []}, {"coef": 18.0, "y": []}, {"coef": 19.0, "y": []}, {"coef": 20.0, "y": []}, {"coef": 21.0, "y": []}, {"coef": 22.0, "y": []}, {"coef": 23.0, "y": []}, {"coef": 24.0, "y": []}, {"coef": 25.0, "y": []}, {"coef": 26.0, "y": []}, {"coef": 27.0, "y": []}, {"coef": 28.0, "y": []}, {"coef": 29.0, "y": []}, {"coef": 30.0, "y": []}, {"coef": 31.0, "y": []}, {"coef": 32.0, "y": []}, {"coef": 33.0, "y": []}, {"coef": 34.0, "y": []}, {"coef": 35.0, "y": []}, {"coef": 36.0, "y": []}, {"coef": 37.0, "y": []}, {"coef": 38.0, "y": []}, {"coef": 39.0, "y": []}, {"coef": 40.0, "y": []}, {"coef": 41.0, "y": []}, {"coef": 42.0, "y": []}, {"coef": 43.0, "y": []}, {"coef": 44.0, "y": []}, {"coef": 45.0, "y": []}, {"coef": 46.0, "y": []}, {"coef": 47.0, "y": []}, {"coef": 48.0, "y": []}, {"coef": 49.0, "y": []}, {"coef": 50.0, "y": []}, {"coef": 51.0, "y": []}, {"coef": 52.0, "y": []}, {"coef": 53.0, "y": []}, {"coef": 54.0, "y": []}, {"coef": 55.0, "y": []}, {"coef": 56.0, "y": []}, {"coef": 57.0, "y": []}, {"coef": 58.0, "y": []}, {"coef": 59.0, "y": []}, {"coef": 60.0, "y": []}, {"coef": 61.0, "y": []}, {"coef": 62.0, "y": []}, {"coef": 63.0, "y": []}, {"coef": 64.0, "y": []}, {"coef": 65.0, "y": []}, {"coef": 66.0, "y": []}, {"coef": 67.0, "y": []}, {"coef": 68.0, "y": []}, {"coef": 69.0, "y": []}, {"coef": 70.0, "y": []}, {"coef": 71.0, "y": []}, {"coef": 72.0, "y": []}, {"coef": 73.0, "y": []}, {"coef": 74.0, "y": []}, {"coef": 75.0, "y": []}, {"coef": 76.0, "y": []}, {"coef": 77.0, "y": []}, {"coef": 78.0, "y": []}, {"coef": 79.0, "y": []}, {"coef": 80.0, "y": []}, {"coef": 81.0, "y": []}, {"coef": 82.0, "y": []}, {"coef": 83.0, "y": []}, {"coef": 84.0, "y": []}, {"coef": 85.0, "y": []}, {"coef": 86.0, "y": []}, {"coef": 87.0, "y": []}, {"coef": 88.0, "y": []}, {"coef": 89.0, "y": []}, {"coef": 90.0, "y": []}, {"coef": 91.0, "y": []}, {"coef": 92.0, "y": []}, {"coef": 93.0, "y": []}, {"coef": 94.0, "y": []}, {"coef": 95.0, "y": []}, {"coef": 96.0, "y": []}, {"coef": 97.0, "y": []}, {"coef": 98.0, "y": []}, {"coef": 99.0, "y": []}, {"coef": 100.0, "y": []}, {"coef": 101.0, "y": []}, {"coef": 102.0, "y": []}, {"coef": 103.0, "y": []}, {"coef": 104.0, "y": []}, {"coef": 105.0, "y": []}, {"coef": 106.0, "y": []}, {"coef": 107.0, "y": []}, {"coef": 108.0, "y": []}, {"coef": 109.0, "y": []}, {"coef": 110.0, "y": []}, {"coef": 111.0, "y": []}, {"coef": 112.0, "y": []}, {"coef": 113.0, "y": []}, {"coef": 114.0, "y": []}, {"coef": 115.0, "y": []}, {"coef": 116.0, "y": []}, {"coef": 117.0, "y": []}, {"coef": 118.0, "y": []}, {"coef": 119.0, "y": []}, {"coef": 120.0, "y": []}, {"coef": 121.0, "y": []}, {"coef": 122.0, "y": []}, {"coef": 123.0, "y": []}, {"coef": 124.0, "y": []}, {"coef": 125.0, "y": []}, {"coef": 126.0, "y": []}, {"coef": 127.0, "y": []}, {"coef": 128.0, "y": []}, {"coef": 129.0, "y": []}, {"coef": 130.0, "y": []}, {"coef": 131.0, "y": []}, {"coef": 132.0, "y": []}, {"coef": 133.0, "y": []}, {"coef": 134.0, "y": []}, {"coef": 135.0, "y": []}, {"coef": 136.0, "y": []}, {"coef": 137.0, "y": []}, {"coef": 138.0, "y": []}, {"coef": 139.0, "y": []}, {"coef": 140.0, "y": []}, {"coef": 141.0, "y": []}, {"coef": 142.0, "y": []}, {"coef": 143.0, "y": []}, {"coef": 144.0, "y": []}, {"coef": 145.0, "y": []}, {"coef": 146.0, "y": []}, {"coef": 147.0, "y": []}, {"coef": 148.0, "y": []}, {"coef": 149.0, "y": []}, {"coef": 150.0, "y": []}, {"coef": 151.0, "y": []}, {"coef": 152.0, "y": []}, {"coef": 153.0, "y": []}, {"coef": 154.0, "y": []}, {"coef": 155.0, "y": []}, {"coef": 156.0, "y": []}, {"coef": 157.0, "y": []}, {"coef": 158.0, "y": []}, {"coef": 159.0, "y": []}, {"coef": 160.0, "y": []}, {"coef": 161.0, "y": []}, {"coef": 162.0, "y": []}, {"coef": 163.0, "y": []}, {"coef": 164.0, "y": []}, {"coef": 165.0, "y": []}, {"coef": 166.0, "y": []}, {"coef": 167.0, "y": []}, {"coef": 168.0, "y": []}, {"coef": 169.0, "y": []}, {"coef": 170.0, "y": []}, {"coef": 171.0, "y": []}, {"coef": 172.0, "y": []}, {"coef": 173.0, "y": []}, {"coef": 174.0, "y": []}, {"coef": 175.0, "y": []}, {"coef": 176.0, "y": []}, {"coef": 177.0, "y": []}, {"coef": 178.0, "y": []}, {"coef": 179.0, "y": []}, {"coef": 180.0, "y": []}, {"coef": 181.0, "y": []}, {"coef": 182.0, "y": []}, {"coef": 183.0, "y": []}, {"coef": 184.0, "y": []}, {"coef": 185.0, "y": []}, {"coef": 186.0, "y": []}, {"coef": 187.0, "y": []}, {"coef": 188.0, "y": []}, {"coef": 189.0, "y": []}, {"coef": 190.0, "y": []}, {"coef": 191.0, "y": []}, {"coef": 192.0, "y": []}, {"coef": 193.0, "y": []}, {"coef": 194.0, "y": []}, {"coef": 195.0, "y": []}, {"coef": 196.0, "y": []}, {"coef": 197.0, "y": []}, {"coef": 198.0, "y": []}, {"coef": 199.0, "y": []}, {"coef": 200.0, "y": []}, {"coef": 201.0, "y": []}, {"coef": 202.0, "y": []}, {"coef": 203.0, "y": []}, {"coef": 204.0, "y": []}, {"coef": 205.0, "y": []}, {"coef": 206.0, "y": []}, {"coef": 207.0, "y": []}, {"coef": 208.0, "y": []}, {"coef": 209.0, "y": []}, {"coef": 210.0, "y": []}, {"coef": 211.0, "y": []}, {"coef": 212.0, "y": []}, {"coef": 213.0, "y": []}, {"coef": 214.0, "y": []}, {"coef": 215.0, "y": []}, {"coef": 216.0, "y": []}, {"coef": 217.0, "y": []}, {"coef": 218.0, "y": []}, {"coef": 219.0, "y": []}, {"coef": 220.0, "y": []}, {"coef": 221.0, "y": []}, {"coef": 222.0, "y": []}, {"coef": 223.0, "y": []}, {"coef": 224.0, "y": []}, {"coef": 225.0, "y": []}, {"coef": 226.0, "y": []}, {"coef": 227.0, "y": []}, {"coef": 228.0, "y": []}, {"coef": 229.0, "y": []}, {"coef": 230.0, "y": []}, {"coef": 231.0, "y": []}, {"coef": 232.0, "y": []}, {"coef": 233.0, "y": []}, {"coef": 234.0, "y": []}, {"coef": 235.0, "y": []}, {"coef": 236.0, "y": []}, {"coef": 237.0, "y": []}, {"coef": 238.0, "y": []}, {"coef": 239.0, "y": []}, {"coef": 240.0, "y": []}, {"coef": 241.0, "y": []}, {"coef": 242.0, "y": []}, {"coef": 243.0, "y": []}, {"coef": 244.0, "y": []}, {"coef": 245.0, "y": []}, {"coef": 246.0, "y": []}, {"coef": 247.0, "y": []}, {"coef": 248.0, "y": []}, {"coef": 249.0, "y": []}, {"coef": 250.0, "y": []}, {"coef": 251.0, "y": []}, {"coef": 252.0, "y": []}, {"coef": 253.0, "y": []}, {"coef": 254.0, "y": []}, {"coef": 255.0, "y": []}, {"coef": 256.0, "y": []}, {"coef": 257.0, "y": []}, {"coef": 258.0, "y": []}, {"coef": 259.0, "y": []}, {"coef": 260.0, "y": []}, {"coef": 261.0, "y": []}, {"coef": 262.0, "y": []}, {"coef": 263.0, "y": []}, {"coef": 264.0, "y": []}, {"coef": 265.0, "y": []}, {"coef": 266.0, "y": []}, {"coef": 267.0, "y": []}, {"coef": 268.0, "y": []}, {"coef": 269.0, "y": []}, {"coef": 270.0, "y": []}, {"coef": 271.0, "y": []}, {"coef": 272.0, "y": []}, {"coef": 273.0, "y": []}, {"coef": 274.0, "y": []}, {"coef": 275.0, "y": []}, {"coef": 276.0, "y": []}, {"coef": 277.0, "y": []}, {"coef": 278.0, "y": []}, {"coef": 279.0, "y": []}, {"coef": 280.0, "y": []}, {"coef": 281.0, "y": []}, {"coef": 282.0, "y": []}, {"coef": 283.0, "y": []}, {"coef": 284.0, "y": []}, {"coef": 285.0, "y": []}, {"coef": 286.0, "y": []}, {"coef": 287.0, "y": []}, {"coef": 288.0, "y": []}, {"coef": 289.0, "y": []}, {"coef": 290.0, "y": []}, {"coef": 291.0, "y": []}, {"coef": 292.0, "y": []}, {"coef": 293.0, "y": []}, {"coef": 294.0, "y": []}, {"coef": 295.0, "y": []}, {"coef": 296.0, "y": []}, {"coef": 297.0, "y": []}, {"coef": 298.0, "y": []}, {"coef": 299.0, "y": []}, {"coef": 300.0, "y": []}, {"coef": 301.0, "y": []}, {"coef": 302.0, "y": []}, {"coef": 303.0, "y": []}, {"coef": 304.0, "y": []}, {"coef": 305.0, "y": []}, {"coef": 306.0, "y": []}, {"coef": 307.0, "y": []}, {"coef": 308.0, "y": []}, {"coef": 309.0, "y": []}, {"coef": 310.0, "y": []}, {"coef": 311.0, "y": []}, {"coef": 312.0, "y": []}, {"coef": 313.0, "y": []}, {"coef": 314.0, "y": []}, {"coef": 315.0, "y": []}, {"coef": 316.0, "y": []}, {"coef": 317.0, "y": []}, {"coef": 318.0, "y": []}, {"coef": 319.0, "y": []}, {"coef": 320.0, "y": []}, {"coef": 321.0, "y": []}, {"coef": 322.0, "y": []}, {"coef": 323.0, "y": []}, {"coef": 324.0, "y": []}, {"coef": 325.0, "y": []}, {"coef": 326.0, "y": []}, {"coef": 327.0, "y": []}, {"coef": 328.0, "y": []}, {"coef": 329.0, "y": []}, {"coef": 330.0, "y": []}, {"coef": 331.0, "y": []}, {"coef": 332.0, "y": []}, {"coef": 333.0, "y": []}, {"coef": 334.0, "y": []}, {"coef": 335.0, "y": []}, {"coef": 336.0, "y": []}, {"coef": 337.0, "y": []}, {"coef": 338.0, "y": []}, {"coef": 339.0, "y": []}, {"coef": 340.0, "y": []}, {"coef": 341.0, "y": []}, {"coef": 342.0, "y": []}, {"coef": 343.0, "y": []}, {"coef": 344.0, "y": []}, {"coef": 345.0, "y": []}, {"coef": 346.0, "y": []}, {"coef": 347.0, "y": []}, {"coef": 348.0, "y": []}, {"coef": 349.0, "y": []}, {"coef": 350.0, "y": []}, {"coef": 351.0, "y": []}, {"coef": 352.0, "y": []}, {"coef": 353.0, "y": []}, {"coef": 354.0, "y": []}, {"coef": 355.0, "y": []}, {"coef": 356.0, "y": []}, {"coef": 357.0, "y": []}, {"coef": 358.0, "y": []}, {"coef": 359.0, "y": []}, {"coef": 360.0, "y": []}], "coef_col": "Factor de multiplicación de los coeficientes", "x_col": null, "y_cols": [], "ysum_col": null};
-  </script>
-  <script src="app.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
